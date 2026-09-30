@@ -41,6 +41,7 @@ class _TrailGuardAppState extends State<TrailGuardApp> {
   StreamSubscription<GpsPoint>? _stillnessSub;
   StreamSubscription<dynamic>? _predSub;
   bool _disorientationDialogShowing = false;
+  DateTime _lastDisorientationAlert = DateTime.fromMillisecondsSinceEpoch(0);
 
   @override
   void initState() {
@@ -51,6 +52,11 @@ class _TrailGuardAppState extends State<TrailGuardApp> {
 
   void _onPrediction(dynamic pred) {
     if (pred.riskLevel.toString().contains('disoriented') && !_disorientationDialogShowing) {
+      final now = DateTime.now();
+      // Enforce a 3-minute cooldown so the user isn't spammed with dialogs
+      if (now.difference(_lastDisorientationAlert).inMinutes < 3) return;
+      _lastDisorientationAlert = now;
+
       _disorientationDialogShowing = true;
       final navState = _navigatorKey.currentState;
       if (navState != null) {
@@ -61,11 +67,12 @@ class _TrailGuardAppState extends State<TrailGuardApp> {
             pageBuilder: (_, __, ___) => const DisorientationCheckDialog(),
           ),
         ).then((_) {
-          // Dialog closed
+          // Reset the flag only when the dialog is actually dismissed
+          _disorientationDialogShowing = false;
         });
+      } else {
+        _disorientationDialogShowing = false;
       }
-    } else if (!pred.riskLevel.toString().contains('disoriented')) {
-      _disorientationDialogShowing = false;
     }
   }
 
