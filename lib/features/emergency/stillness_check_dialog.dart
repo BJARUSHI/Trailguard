@@ -159,8 +159,8 @@ class _StillnessCheckDialogState extends State<StillnessCheckDialog> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      // Not dismissible via back button — must respond via the button.
-      canPop: false,
+      // Allow programmatic popping when 'I'm okay' is pressed.
+      canPop: true,
       child: Scaffold(
         backgroundColor: const Color(0xFF3D0000),
         body: SafeArea(

@@ -58,7 +58,7 @@ class _DisorientationCheckDialogState extends State<DisorientationCheckDialog> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
       child: Scaffold(
         backgroundColor: const Color(0xFF5A1000), // A dark reddish color
         body: SafeArea(
