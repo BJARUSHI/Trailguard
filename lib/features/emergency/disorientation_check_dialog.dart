@@ -104,7 +104,7 @@ class _DisorientationCheckDialogState extends State<DisorientationCheckDialog> {
                       padding: const EdgeInsets.symmetric(vertical: 18),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
-                    child: const Text("I'm Ok",
+                    child: const Text("I'm okay",
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                 ),

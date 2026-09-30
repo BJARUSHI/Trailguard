@@ -203,7 +203,7 @@ class _StillnessCheckDialogState extends State<StillnessCheckDialog> {
                         padding: const EdgeInsets.symmetric(vertical: 18),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
-                      child: const Text("I'm OK — Cancel",
+                      child: const Text("I'm okay",
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
                   ),
