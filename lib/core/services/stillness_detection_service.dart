@@ -103,7 +103,21 @@ class StillnessDetectionService {
   /// immediately re-triggering.
   void resetAfterAlert(GpsPoint? currentPoint) {
     _alertActive = false;
-    _anchor = currentPoint;
+    if (currentPoint != null) {
+      // Must update the timestamp to NOW, otherwise if the GPS is perfectly still,
+      // the old timestamp will immediately trigger the 60-second threshold again
+      // on the next timer tick.
+      _anchor = GpsPoint(
+        latitude: currentPoint.latitude,
+        longitude: currentPoint.longitude,
+        altitude: currentPoint.altitude,
+        accuracy: currentPoint.accuracy,
+        timestamp: DateTime.now(),
+        speed: currentPoint.speed,
+      );
+    } else {
+      _anchor = null;
+    }
   }
 
   void _onPoint(GpsPoint point) {
