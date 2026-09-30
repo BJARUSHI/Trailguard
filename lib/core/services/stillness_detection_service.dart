@@ -108,6 +108,7 @@ class StillnessDetectionService {
       // the old timestamp will immediately trigger the 60-second threshold again
       // on the next timer tick.
       _anchor = GpsPoint(
+        sessionId: currentPoint.sessionId,
         latitude: currentPoint.latitude,
         longitude: currentPoint.longitude,
         altitude: currentPoint.altitude,
